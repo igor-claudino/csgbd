@@ -15,27 +15,28 @@ void insert(char* matricula, char* nome, char* cpf){
 		printf("FIM DO ESPACO VAZIO ANTES DA INSERCAO: %d\n", disco.fim);
 		disco.qEntradas += 1; 
 		//Inserindo matricula
-		disco.reg[i++] = 'm';
-		disco.reg[i++] = '=';
+		disco.reg[i--] = 'm';
+		disco.reg[i--] = '=';
 		for(j = 0; matricula[j]!='\0'; j++){
-			disco.reg[i++] = matricula[j];
+			disco.reg[i--] = matricula[j];
 		}
-		disco.reg[i++] = '|';
+		disco.reg[i--] = '|';
 		//Inserindo nome
-		disco.reg[i++] = 'n';
-		disco.reg[i++] = '=';
+		disco.reg[i--] = 'n';
+		disco.reg[i--] = '=';
 		for(j = 0; nome[j]!='\0'; j++){
-			disco.reg[i++] = nome[j];
+			disco.reg[i--] = nome[j];
 		}
-		disco.reg[i++] = '|';
+		disco.reg[i--] = '|';
 		//Inserindo cpf
-		disco.reg[i++] = 'c';
-		disco.reg[i++] = '=';
+		disco.reg[i--] = 'c';
+		disco.reg[i--] = '=';
 		for(j = 0; cpf[j]!='\0'; j++){
-			disco.reg[i++] = cpf[j];
+			disco.reg[i--] = cpf[j];
 		}
-		disco.reg[i++] = '$';
-		disco.tamReg[disco.qEntradas-1] = i -  disco.fim;
+		disco.reg[i--] = '$';
+		disco.reg[i-1] = '\0';
+		disco.tamReg[disco.qEntradas-1] = disco.fim - i;
 		disco.fim = i;
 		printf("FIM DO ESPACO VAZIO APOS DA INSERCAO: %d\n", disco.fim);
 		printf("TAMANHO DO REGISTRO INSERIDO: %d\n", disco.tamReg[disco.qEntradas-1]);
@@ -51,7 +52,7 @@ void listReg(){
 		reg = strtok(NULL, "$");
 	}
 	*/
-	for(int i =0; disco.reg[i]!='\0'; i++){
+	for(int i =998; disco.reg[i]!='\0'; i--){
 		if(disco.reg[i]=='$') printf("\n");
 		else printf("%c", disco.reg[i]);
 	}
@@ -64,7 +65,7 @@ int main(){
 	char matricula[6];
 	char cpf[12];
 	disco.qEntradas = 0;
-	disco.fim = 0;
+	disco.fim = 998;
 	
 	/*
 	 '=' - valor ao campo
